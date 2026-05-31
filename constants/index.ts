@@ -191,45 +191,45 @@ export const resumes: Resume[] = [
 
 export const AIResponseFormat = `
        interface Feedback { 
-            overallScore: number;
+            overallScore: number; //max 100
             ATS: {
-                score: number;
+                score: number; //rate based on ATS suitability
                 tips: {
                 type: "good" | "improve";
-                tip: string;
+                tip: string; //give 3-4 tips
                 }[];
             };
             toneAndStyle: {
-                score: number;
+                score: number; //max 100
                 tips: {
                 type: "good" | "improve";
-                tip: string;
-                explanation: string;
-                }[];
+                tip: string; //make it a short "title" for the actual explanation
+                explanation: string; //explain in detail here
+                }[];//give 3-4 tips
             };
             content: {
-                score: number;
+                score: number; //max 100
                 tips: {
                 type: "good" | "improve";
-                tip: string;
-                explanation: string;
-                }[];
+                tip: string; //make it a short "title" for the actual explanation
+                explanation: string; //explain in detail here
+                }[]; //give 3-4 tips
             };
             structure: {
-                score: number;
+                score: number; //max 100
                 tips: {
                 type: "good" | "improve";
-                tip: string;
-                explanation: string;
-                }[];
+                tip: string; //make it a short "title" for the actual explanation
+                explanation: string; //explain in detail here
+                }[]; //give 3-4 tips
             };
             skills: {
-                score: number;
+                score: number; //max 100
                 tips: {
                 type: "good" | "improve";
-                tip: string;
-                explanation: string;
-                }[];
+                tip: string; //make it a short "title" for the actual explanation
+                explanation: string; //explain in detail here
+                }[]; // give 3-4 tips
             };
         };`
 
