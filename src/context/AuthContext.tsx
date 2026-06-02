@@ -7,6 +7,8 @@ interface AuthContextType {
     user: User | null;
     loading: boolean;
     signWithGoogle: () => Promise<void>;
+    signIn: (email: string, password: string) => Promise<void>;
+    signUp: (email: string, password: string) => Promise<void>;
     signOut: () => Promise<void>;
 }
 
@@ -48,6 +50,32 @@ export const AuthProvider = ({
         });
     };
 
+    const signIn = async(email: string, password: string) => {
+        const {error} = await supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if(error) {
+            alert(error.message);
+        } 
+    };
+
+
+    const signUp = async(email: string, password: string) => {
+        const {error} = await supabase.auth.signUp({
+            email,
+            password
+        });
+
+        if(error) {
+            alert(error.message);
+        } else{
+            alert("Check your email for verification");
+        }
+    };
+    
+
     const signOut = async () => {
 
         await supabase.auth.signOut();
@@ -59,6 +87,8 @@ export const AuthProvider = ({
             user,
             loading,
             signWithGoogle,
+            signIn,
+            signUp,
             signOut,
         }}
         >

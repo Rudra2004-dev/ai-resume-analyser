@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
+import Upload from "./pages/Upload";
 
 function App() {
   
@@ -15,6 +16,11 @@ function App() {
       <Route
       path="/auth"
       element={<Auth/>}
+      />
+
+      <Route
+      path="/upload"
+      element={<Upload/>}
       />
     </Routes>
   )
