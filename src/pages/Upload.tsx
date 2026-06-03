@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import { supabase } from "../lib/supabase";
 import FileUploader from "../components/FileUploader"
 import {convertPdfToImage} from "../lib/pdf2img"
+import {prepareInstructions} from "../constants/index"
+import {model} from "../lib/gemini"
 
 
 const Upload = () => {
@@ -13,6 +15,7 @@ const Upload = () => {
      const [isProcessing, setIsProcessing] = useState(false);
      const [statusText, setStatusText] = useState("");
      const [file, setFile] = useState<File | null>(null);
+     const [, setAiResponse] = useState(null);
 
      const handleFileSelect = (file : File | null) => {
         setFile(file);
@@ -44,7 +47,8 @@ const Upload = () => {
                 .upload(resumePath, file);
 
             if(resumeError) {
-                setStatusText("Error uploading resume");
+                console.log(resumeError);
+                setStatusText(resumeError.message);
                 return;
             }
             
@@ -75,7 +79,8 @@ const Upload = () => {
             .upload(imagePath, imageFile.file);
 
             if(imageError){
-                setStatusText("Error uploading image");
+                console.log(imageError);
+                setStatusText(imageError.message);
                 return;
             }
 
@@ -122,8 +127,26 @@ const Upload = () => {
 
             //ai integration
             //
-            //
-            //
+            setStatusText("Preparing Ai analysis...");
+
+            const instructions = prepareInstructions({
+                jobTitle,
+                jobDescription,
+            });
+
+            setStatusText("Analysing with Gemini AI...");
+
+            const result = await model.generateContent(instructions);
+
+            const responseText = result.response.text();
+
+            const response = JSON.parse(responseText);
+
+            console.log(response);
+
+            setAiResponse(response);
+
+            setStatusText("Analysing complete!");
             //
 
             setStatusText("Analysis comple!");

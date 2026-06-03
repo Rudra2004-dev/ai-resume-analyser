@@ -1,7 +1,7 @@
 import * as pdfjsLib from "pdfjs-dist";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
-  `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
 
 export const convertPdfToImage = async (
     file: File
@@ -40,7 +40,7 @@ export const convertPdfToImage = async (
             await page.render({
                 canvasContext: context,
                 viewport,
-                canvas,
+                
             }).promise;
 
             canvas.toBlob((blob) => {

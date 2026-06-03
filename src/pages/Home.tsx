@@ -1,4 +1,4 @@
-import {resumes} from "../../constants"
+import {resumes} from "../constants"
 import Navbar from "../components/Navbar";
 import ResumeCard from "../components/ResumeCard";
 import bgMain from "/images/bg-main.svg"
