@@ -40,7 +40,6 @@ export const convertPdfToImage = async (
             await page.render({
                 canvasContext: context,
                 viewport,
-                
             }).promise;
 
             canvas.toBlob((blob) => {

@@ -5,7 +5,7 @@ import { supabase } from "../lib/supabase";
 import FileUploader from "../components/FileUploader"
 import {convertPdfToImage} from "../lib/pdf2img"
 import {prepareInstructions} from "../constants/index"
-import {model} from "../lib/gemini"
+import {groq} from "../lib/groq"
 
 
 const Upload = () => {
@@ -134,13 +134,22 @@ const Upload = () => {
                 jobDescription,
             });
 
-            setStatusText("Analysing with Gemini AI...");
+            setStatusText("Analysing with AI...");
 
-            const result = await model.generateContent(instructions);
+           const completion = await groq.chat.completions.create({
+           model: "llama-3.3-70b-versatile",
+           messages: [
+          {
+            role: "user",
+            content: instructions,
+       },
+    ],
+  });
 
-            const responseText = result.response.text();
+const responseText =
+  completion.choices[0].message.content || "{}";
 
-            const response = JSON.parse(responseText);
+const response = JSON.parse(responseText);
 
             console.log(response);
 
